@@ -1,6 +1,10 @@
 FROM ubuntu:14.04
 COPY jdk-10.0.1_linux-x64_bin.tar.gz /usr/local/
 WORKDIR /usr/local
+RUN apt-get update && apt-get install -y apt-transport-https
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY sources.list.qinghua /etc/apt/sources.list
+RUN apt-get update && apt-get install -y vim
 RUN tar zxvf jdk-10.0.1_linux-x64_bin.tar.gz
 ENV JAVA_HOME=/usr/local/jdk-10.0.1
 ENV JRE_HOME=$JAVA_HOME/jre
